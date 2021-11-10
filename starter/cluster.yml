@@ -1,8 +1,8 @@
 # mainatiner: nick.reva@snap.com
 nodes:
-- address: 192.168.50.101
+- address: 173.255.240.156
   port: "22"
-  internal_address: 192.168.50.101
+  internal_address: 173.255.240.156
   role:
   - controlplane
   - etcd
