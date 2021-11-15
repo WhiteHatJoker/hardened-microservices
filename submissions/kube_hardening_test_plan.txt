@@ -1,0 +1,10 @@
+How will you test the changes?
+We will have a non-production environment to test our changes. A full copy of the production environment will be installed on our test cluster to make sure the 
+setup and environment doesn't differ. If our tests are good we can try directing a small traffic to our non-production environment to see if everything is working well.
+We will also run Grafana and Prometheus here as well to track how the system  is performing after the changes were done. We will monitor Falco events as well as the
+overall system CPU/memory load as well as any request response time changes.
+
+How will you ensure the changes don't negatively affect your cluster?
+First of all, we are going to test the changes in the non-production environment as stated above. Secondly, we will do some canary testing with small traffic as well.
+Thirdly, if it all goes well, only then we will deploy changes to the production environment. We will monitor the system performance using Prometheus and Grafana.
+Finally, we are going to use git to version control our cluster.yml file changes so if anything goes wrong we can revert the file. We'll need a reboot though.
