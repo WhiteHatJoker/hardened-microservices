@@ -10,6 +10,17 @@ Auditing should be used together with the memory/cpu limits per container to avo
 5. Elevation of Privileges. Container privileges may be escalated as a result of tampering with the docker configuration or using the --privilege flag. Containers should be restricted from gaining new privileges.
 
 
+Kubernetes Attack Surfaces:
+1. Spoofing. Kube-api server is the most vital component of the kubernetes. Calls to the kube-api can be spoofed by hackers as it is not secure by default. TLS needs to be used to encrypt the connection.
+In addition, direct internet access, anonymous or basic authentication should be disabled.
+2. Tampering. etcd containts important configuration settings of the whole cluster. Malicious player might tamper with etcd configurations to change the setup to their own favor. Permissions should be highly
+controlled to avoid this from happenning, 644 should be set to etcd folder together with etcd:etcd ownership.
+3. Information Disclosure. etcd may expose highly sensitive information as it manages key-value store. Again, TLS should be used to encrypt the information in travel and calls other than from API server should be restricted.
+4. Denial of Service. Kubelet is not protected from excessive traffic and load which may lead to denial of service. --protect kernel defaults should be set to true.
+5. Elevation of Privilege. Kubelete is not secure by default. The access to kubelet can be gained and privileges may be elevated. To avoid this, the authorization mode argument should not be set to always allow.
+
+
+Docker-Bench Fixes:
 Spoofing:
 [FAIL] 2.6.b Ensure TLS authentication for Docker daemon is configured (Scored)
 [FAIL] 2.14.b Ensure Userland Proxy is Disabled (Scored)
@@ -36,4 +47,3 @@ Denial of Service:
 
 Elevation of Privileges:
 [FAIL] 2.17.b Ensure containers are restricted from acquiring new privileges (Scored)
-
