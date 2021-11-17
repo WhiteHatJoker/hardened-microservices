@@ -1,0 +1,23 @@
+1. Incident commander name:
+Ravshan Kh
+
+2. Executive Summary of what happened:
+Three crypto mining pods of unknown source were launched on the RKE cluster.The crypto miners were identified as  minergate, moneropool and cryptotonight.
+
+3. Summary of what was affected:
+Malicious users were able to break into our kubernetes cluster and launch crypto mining containers. They wanted to benefit by consuming our server resources for their own
+benefit of mining cryptocurrencies.
+
+4. Summmry of the impact:
+As a result of the hack, the amount of calls to the Kubectl API increased, CPU Utilization rose to 99% and the memory was getting overloaded. 
+The system became unstable, irresponsive and laggy.
+
+5. Summary of the remediation steps:
+Suspicious increase in the consumption of the server resources were noticed through Kubernetes Compute Resources in Grafana.
+Also, the falco exporter noticed 3 calls to the kube api for scheduling new crypto pods. As a result, 3 unknown crypto mining
+pods were identified and deleted from the cluster in the timely manner.
+
+6. Summary of lessons learned:
+Kubernetes cluster is not secure by default. We should investigate further to find out the security weakness in our cluster and harden it. 
+We should deply investigate the access origin to our Kube API server. Also, we should discourage unknown containers from running on our clusters using
+admission controllers.
